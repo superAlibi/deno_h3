@@ -11,7 +11,6 @@ const handlerIndex = defineHandler(async (event) => {
   const status = Number.isNaN(Number(pathnameStatus)) ? 200 : Number(pathnameStatus)
 
   const contentType = event.req.headers.get('Content-Type')?.toLowerCase()
-  console.log(contentType)
   const accept = event.req.headers.get('Accept')?.toLowerCase()
   const query = getQuery(event)
   let body = null
