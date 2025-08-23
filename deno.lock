@@ -1,0 +1,34 @@
+{
+  "version": "4",
+  "redirects": {
+    "https://esm.sh/cookie-es@^2.0.0?target=denonext": "https://esm.sh/cookie-es@2.0.0?target=denonext",
+    "https://esm.sh/h3@beta": "https://esm.sh/h3@2.0.0-beta.3",
+    "https://esm.sh/rou3@^0.7.3?target=denonext": "https://esm.sh/rou3@0.7.3?target=denonext",
+    "https://esm.sh/srvx@^0.8.2/deno?target=denonext": "https://esm.sh/srvx@0.8.6/deno?target=denonext",
+    "https://esm.sh/srvx@^0.8.2/node?target=denonext": "https://esm.sh/srvx@0.8.6/node?target=denonext",
+    "https://esm.sh/srvx@^0.8.2?target=denonext": "https://esm.sh/srvx@0.8.6?target=denonext"
+  },
+  "remote": {
+    "https://esm.sh/cookie-es@2.0.0/denonext/cookie-es.mjs": "6e8948f15e29859e9b0b316e2ba5f81bcb4917bf5bc4f1906e1a5b0d7de33e9d",
+    "https://esm.sh/cookie-es@2.0.0?target=denonext": "c4a0ec301aecb46a555124cb5ac9b8f0120eb44ab5eb346819cc7569c69d29f6",
+    "https://esm.sh/h3@2.0.0-beta.3": "6a69758290ff41ea9a1b0163145468cbd1dfcf1d94470b5b4f6b38938c24137c",
+    "https://esm.sh/h3@2.0.0-beta.3/denonext/h3.mjs": "3d45559c31393785aca107edf35bbeca361ff1b48a42bacd02360d3775f65df3",
+    "https://esm.sh/rou3@0.7.3/denonext/rou3.mjs": "e5ff7da14e9354fde3884e9eeab4f5c018ba8c3ab13ebb7acaae2ae18a68043f",
+    "https://esm.sh/rou3@0.7.3?target=denonext": "b22e2d741ec4972885b1f6a78f5d3cb89b5237460318bcbb19d490623ca41a1f",
+    "https://esm.sh/srvx@0.8.6/deno?target=denonext": "b52faf8c9f671f56c22480d54d41b2381a2fa1ed3a2d14be4c248ac35a6d2584",
+    "https://esm.sh/srvx@0.8.6/denonext/deno.mjs": "8daae30de09481459326fb85b51b350817c74fd4f6a9f3ccbe6beab68f2fb4c9",
+    "https://esm.sh/srvx@0.8.6/denonext/dist/_chunks/_middleware-BvRR7B4M.mjs": "bd92a90273cce846784796cd4f3ef2740e186aa74e9a73932e13835e771cdeb1",
+    "https://esm.sh/srvx@0.8.6/denonext/dist/_chunks/_plugins-DOhVIkXu.mjs": "15490913176319bd2f4893ebd28e1301065ff82a1acb6791dcc733635ec89a08",
+    "https://esm.sh/srvx@0.8.6/denonext/dist/_chunks/_url-CdE4ce6F.mjs": "0e7757e6be671e7c54a90b54e41ccb030bad02c7332c0ab070e9acc483d4c68c",
+    "https://esm.sh/srvx@0.8.6/denonext/dist/_chunks/_utils-DRF_4b_y.mjs": "29552b5c4342d77c95001e7cdba3f741be6fa70c96f209c18ae8ba438b41ff9b",
+    "https://esm.sh/srvx@0.8.6/denonext/node.mjs": "9fc372b3ebe2fab18ccd549961c2e3d9c6fde5d9b3764289df0072762f808eae",
+    "https://esm.sh/srvx@0.8.6/denonext/srvx.mjs": "d73ab01ee7fdf8c88983faa4ff7462c6215b304f26429edcc40868b23987cbbe",
+    "https://esm.sh/srvx@0.8.6/node?target=denonext": "0411492a73e43061cdd441345bb05edb3f4be669fdff685f37b8a5733fb6203a",
+    "https://esm.sh/srvx@0.8.6?target=denonext": "39febfc3e22ef099eb5db6daf612dc350eb8ef1c9b3e810f6322aeab082da378"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/assert@1"
+    ]
+  }
+}
