@@ -3,9 +3,9 @@
 
 ## 项目前置环境
 
-主机环境必须具备 deno 命令, 关于 deno 是一个服务端JavaScript 运行时 , 可直接运行typescript.
+主机环境必须具备 deno , deno 是一个服务端 `JavaScript` 运行时 , 可直接运行 `typescript`.
 
-可参考 [deno官方文档](https://deno.com/) 说明
+可参考 [deno官方文档](https://deno.com/)
 
 ## 项目启动方法
 
