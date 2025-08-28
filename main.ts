@@ -4,6 +4,7 @@ import redirectResponse from "./apps/redirect.ts";
 import clientError from "./apps/client-error.ts";
 import serverError from "./apps/server-error.ts";
 import timeoutResponse from "./apps/timeout.ts";
+import mp3Response from "./apps/mp3.ts";
 const app = new H3();
 
 
@@ -12,5 +13,6 @@ app.mount("/redirect", redirectResponse);
 app.mount("/client-error", clientError);
 app.mount("/server-error", serverError);
 app.mount("/timeout", timeoutResponse);
+app.mount("/mp3", mp3Response);
 app.mount("*", successResponse);
 serve(app, { port: 3000 });
