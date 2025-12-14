@@ -1,5 +1,37 @@
 {
-  "version": "4",
+  "version": "5",
+  "specifiers": {
+    "jsr:@std/assert@1": "1.0.16",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
+    "npm:h3@^2.0.1-rc.5": "2.0.1-rc.5"
+  },
+  "jsr": {
+    "@std/assert@1.0.16": {
+      "integrity": "6a7272ed1eaa77defe76e5ff63ca705d9c495077e2d5fd0126d2b53fc5bd6532",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    }
+  },
+  "npm": {
+    "h3@2.0.1-rc.5": {
+      "integrity": "sha512-qkohAzCab0nLzXNm78tBjZDvtKMTmtygS8BJLT3VPczAQofdqlFXDPkXdLMJN4r05+xqneG8snZJ0HgkERCZTg==",
+      "dependencies": [
+        "rou3",
+        "srvx"
+      ]
+    },
+    "rou3@0.7.10": {
+      "integrity": "sha512-aoFj6f7MJZ5muJ+Of79nrhs9N3oLGqi2VEMe94Zbkjb6Wupha46EuoYgpWSOZlXww3bbd8ojgXTAA2mzimX5Ww=="
+    },
+    "srvx@0.9.6": {
+      "integrity": "sha512-5L4rT6qQqqb+xcoDoklUgCNdmzqJ6vbcDRwPVGRXewF55IJH0pqh0lQlrJ266ZWTKJ4mfeioqHQJeAYesS+RrQ==",
+      "bin": true
+    }
+  },
   "redirects": {
     "https://esm.sh/cookie-es@^2.0.0?target=denonext": "https://esm.sh/cookie-es@2.0.0?target=denonext",
     "https://esm.sh/h3@beta": "https://esm.sh/h3@2.0.0-beta.3",
@@ -28,7 +60,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/assert@1"
+      "jsr:@std/assert@1",
+      "npm:h3@^2.0.1-rc.5"
     ]
   }
 }
