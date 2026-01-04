@@ -7,15 +7,13 @@ import timeoutResponse from "./apps/timeout.ts";
 const app = new H3();
 
 app.all("/", (event) => {
-    return Response.json({
-        tryAccess: [
-            getRequestHost(event) + "/success/200",
-            getRequestHost(event) + "/redirect/300",
-            getRequestHost(event) + "/client-error/400",
-            getRequestHost(event) + "/server-error/500",
-            getRequestHost(event) + "/timeout?timeout=60000",
-        ]
-    }, { status: 200 });
+    return Response.json([
+        getRequestHost(event) + "/success/200",
+        getRequestHost(event) + "/redirect/300",
+        getRequestHost(event) + "/client-error/400",
+        getRequestHost(event) + "/server-error/500",
+        getRequestHost(event) + "/timeout?timeout=60000",
+    ]);
 });
 
 app.mount("/success", successResponse);
