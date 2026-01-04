@@ -4,7 +4,7 @@ const handler = defineHandler((event) => {
   const pathname = event.req.url.split('/').pop()
   const responseStatus = Number(pathname)
   const status = Number.isNaN(responseStatus) ? 300 : responseStatus
-  return redirect(event, '/api/success/200', status)
+  return redirect('/api/success/200', status)
 })
 
 app.all("/300", handler);
