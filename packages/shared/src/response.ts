@@ -17,7 +17,7 @@ export interface ResponsePayload {
 export function parseQueryFromUrl(url: string): QueryRecord {
   const params = new URL(url).searchParams;
   const query: QueryRecord = {};
-  for (const [key, value] of params.entries()) {
+  params.forEach((value, key) => {
     const existing = query[key];
     if (existing === undefined) {
       query[key] = value;
@@ -26,7 +26,7 @@ export function parseQueryFromUrl(url: string): QueryRecord {
     } else {
       query[key] = [existing, value];
     }
-  }
+  });
   return query;
 }
 
@@ -45,7 +45,11 @@ export async function parseRequestBody(
     }
     if (contentType.includes("application/x-www-form-urlencoded")) {
       const formData = await req.formData();
-      return Object.fromEntries(formData.entries());
+      const fields: Record<string, FormDataEntryValue> = {};
+      formData.forEach((value, key) => {
+        fields[key] = value;
+      });
+      return fields;
     }
     if (contentType.includes("text/plain")) {
       return await req.text();

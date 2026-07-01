@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -26,12 +28,13 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc && node --watch-path=src --watch-preserve-output scripts/tsc-watch.mjs"
   },
   "dependencies": {
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "typescript": "^6.0.3"
+    "typescript": "7.0.1-rc",
+    "wrangler": "^4.4.0"
   }
 }
