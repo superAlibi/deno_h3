@@ -1,77 +1,88 @@
-# H3 服务器案例
+# HTTP 测试服务器 — Cloudflare Workers Monorepo
 
-基于 Deno 和 H3 框架的简单 HTTP 服务器示例。
+基于 pnpm workspace 的 monorepo，核心应用为部署到 Cloudflare Workers 的 Hono + zod-openapi 服务。
 
-## 项目前置环境
+## 前置环境
 
-主机环境必须具备 deno , deno 是一个服务端 `JavaScript` 运行时 , 可直接运行 `typescript`.
+- [Node.js](https://nodejs.org/) 22+
+- [pnpm](https://pnpm.io/) 11+
+- [Cloudflare 账号](https://dash.cloudflare.com/)（部署时需要）
 
-可参考 [deno官方文档](https://deno.com/)
+## 快速开始
 
-## 项目启动方法
-
-### 本地开发
 ```bash
-deno task dev
+# 安装依赖
+pnpm install
+
+# 本地开发（Wrangler dev server，默认 http://localhost:8787）
+pnpm dev
+
+# 部署到 Cloudflare Workers
+pnpm deploy
 ```
 
-### Docker 构建和运行
-```bash
-# 构建镜像
-docker build -t deno-h3 .
+## 项目结构
 
-# 运行容器
-docker run -p 5020:5010 deno-h3
 ```
-
-## CI/CD 部署
-
-项目包含两个 GitHub Actions workflows：
-
-### 1. 自动构建镜像 (docker-build.yml)
-- **触发条件**: 推送到 `main` 分支、创建 PR、手动触发
-- **功能**: 自动构建 Docker 镜像并推送到镜像仓库
-- **支持架构**: linux/amd64, linux/arm64
-- **镜像标签**: 
-  - `latest` (main 分支)
-  - `sha-{commit}` (提交哈希)
-  - `{branch-name}` (分支名)
-
-### 2. 手动部署 (deploy.yml)
-- **触发条件**: 手动触发
-- **功能**: 部署指定镜像标签到服务器
-- **部署环境**: 
-  - `latest` - 生产环境 (端口 5020)
-  - `staging` - 测试环境 (端口 5021)
-
-### 必需的 GitHub Secrets
-```
-DOCKER_REGISTRY=dr.lucardo.website:4443
-DOCKER_USERNAME=your_username
-DOCKER_PASSWORD=your_password
-DEPLOY_HOST=your_server_host
-DEPLOY_USER=your_server_user
-SSH_PRIVATE_KEY=your_ssh_private_key
-SSH_PORT=22
+deno_h3/
+├── package.json              # 根 workspace 脚本
+├── pnpm-workspace.yaml       # pnpm monorepo 配置
+├── packages/
+│   └── shared/               # @deno-h3/shared — 共享响应逻辑与常量
+└── apps/
+    └── hono-app/             # Cloudflare Workers — Hono + zod-openapi
+        ├── src/
+        ├── wrangler.jsonc
+        └── package.json
 ```
 
 ## API 端点
 
-- `/success` - 返回成功响应
-- `/redirect` - 重定向响应
-- `/client-error` - 客户端错误响应
-- `/server-error` - 服务器错误响应
-- `/timeout` - 超时响应
-- `/*` - 默认成功响应
+- `GET /` — 端点列表与文档链接
+- `GET /success/{status}` — 2xx 成功响应
+- `GET /redirect/{status}` — 3xx 重定向
+- `GET /client-error/{status}` — 4xx 客户端错误
+- `GET /server-error/{status}` — 5xx 服务器错误
+- `GET /timeout?timeout=` — 延迟响应
+- `GET /openapi.json` — OpenAPI spec
+- `GET /docs` — Scalar 文档 UI
+- `ALL /*` — 默认成功响应（catch-all）
 
-## 项目作用
+## Cloudflare 部署
 
-用来测试 HTTP 请求，后期可能对项目扩展额外的功能。
+### 本地手动部署
+
+```bash
+# 登录 Cloudflare（首次）
+pnpm exec wrangler login
+
+# 部署
+pnpm deploy
+```
+
+### CI/CD（GitHub Actions）
+
+在 GitHub 仓库 Settings → Secrets 中配置：
+
+| Secret | 说明 |
+| ------ | ---- |
+| `CLOUDFLARE_API_TOKEN` | [API Token](https://dash.cloudflare.com/profile/api-tokens)，需 Workers Scripts Edit 权限 |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 账号 ID（Dashboard 右侧栏） |
+
+推送到 `main` 分支后自动部署，也可在 Actions 页手动触发。
 
 ## 技术栈
 
-- **运行时**: Deno
-- **框架**: H3
-- **容器化**: Docker
-- **CI/CD**: GitHub Actions
-- **部署**: Podman
+- **运行时**: Cloudflare Workers
+- **框架**: Hono + @hono/zod-openapi
+- **文档 UI**: Scalar
+- **共享包**: `@deno-h3/shared`（pnpm workspace）
+- **构建/部署**: Wrangler 4
+
+## 开发说明
+
+- 共享逻辑放在 `packages/shared`，通过 `"@deno-h3/shared": "workspace:*"` 引用
+- Wrangler 会自动打包 workspace 依赖，无需预编译 shared 包
+- 修改 `wrangler.jsonc` 后运行 `pnpm cf-typegen` 更新类型
+
+更细的构建踩坑见 [docs/BUILD_PITFALLS.md](docs/BUILD_PITFALLS.md)。

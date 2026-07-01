@@ -1,1 +1,8 @@
 **/*.mp3
+node_modules/
+.wrangler/
+.nitro/
+dist/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
