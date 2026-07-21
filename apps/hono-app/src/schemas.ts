@@ -22,15 +22,3 @@ export const ApiResponseSchema = z
     message: z.string(),
   })
   .openapi("ApiResponse");
-
-export const EndpointListSchema = z
-  .object({
-    endpoints: z.array(z.string()),
-    docs: z.array(
-      z.object({
-        framework: z.string(),
-        url: z.string(),
-      }),
-    ),
-  })
-  .openapi("EndpointList");

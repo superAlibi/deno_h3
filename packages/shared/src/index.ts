@@ -1,3 +1,3 @@
-export * from "./constants.js";
-export * from "./response.js";
-export * from "./schemas.js";
+export * from "./constants.ts";
+export * from "./response.ts";
+export * from "./schemas.ts";

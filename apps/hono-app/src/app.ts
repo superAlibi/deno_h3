@@ -2,31 +2,26 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 import { Scalar } from "@scalar/hono-api-reference";
 import type { RedirectStatusCode } from "hono/utils/http-status";
 import {
-  getEndpointList,
-  REDIRECT_TARGET,
-} from "@deno-h3/shared/constants";
-import {
   handleErrorRequest,
   handleSuccessRequest,
   handleTimeoutRequest,
   parseQueryFromUrl,
-} from "@deno-h3/shared/response";
+} from "@deno-h3/shared";
 import { asRouteHandler } from "./openapi-handlers.ts";
 import {
   clientErrorRoute,
   redirectRoute,
-  rootRoute,
   serverErrorRoute,
   successRoute,
   timeoutRoute,
 } from "./routes.ts";
 
 const app = new OpenAPIHono();
-
-app.openapi(rootRoute, (c) => {
-  const url = new URL(c.req.url);
-  const { endpoints, docs } = getEndpointList(`${url.protocol}//${url.host}`);
-  return c.json({ endpoints, docs }, 200);
+app.get("/", (c) => {
+  return c.redirect(
+    new URL("/doc.html", c.req.header("Origin") || c.req.url),
+    302,
+  );
 });
 
 app.openapi(
@@ -46,7 +41,7 @@ app.openapi(
   asRouteHandler<typeof redirectRoute>((c) => {
     const { status } = c.req.valid("param");
     return Response.redirect(
-      new URL(REDIRECT_TARGET, c.req.raw.url).toString(),
+      new URL("/doc.html", c.req.raw.url).toString(),
       (status || 302) as RedirectStatusCode,
     );
   }),
@@ -102,10 +97,16 @@ app.doc("/openapi.json", (c) => ({
 }));
 
 app.get(
-  "/docs",
+  "/doc.html",
   Scalar({
     theme: "kepler",
     spec: { url: "/openapi.json" },
+    servers: [
+      {
+        url: "https://hono.luchador.dev",
+        description: "当前环境",
+      },
+    ],
   }),
 );
 

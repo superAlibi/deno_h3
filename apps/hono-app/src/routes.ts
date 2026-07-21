@@ -1,33 +1,15 @@
 import { createRoute } from "@hono/zod-openapi";
 import {
   ApiResponseSchema,
-  EndpointListSchema,
   StatusParamsSchema,
   TimeoutQuerySchema,
 } from "./schemas.ts";
 
-export const rootRoute = createRoute({
-  method: "get",
-  path: "/",
-  tags: ["Root"],
-  summary: "端点列表",
-  responses: {
-    200: {
-      description: "端点列表与各框架文档链接",
-      content: {
-        "application/json": {
-          schema: EndpointListSchema,
-        },
-      },
-    },
-  },
-});
-
 export const successRoute = createRoute({
   method: "get",
   path: "/success/{status}",
-  tags: ["Success"],
-  summary: "成功响应",
+  tags: ["成功响应"],
+  summary: "返回20x系列响应",
   request: {
     params: StatusParamsSchema,
   },
@@ -46,8 +28,8 @@ export const successRoute = createRoute({
 export const redirectRoute = createRoute({
   method: "get",
   path: "/redirect/{status}",
-  tags: ["Redirect"],
-  summary: "重定向",
+  tags: ["重定响应"],
+  summary: "返回重定向响应",
   request: {
     params: StatusParamsSchema,
   },
@@ -61,8 +43,8 @@ export const redirectRoute = createRoute({
 export const clientErrorRoute = createRoute({
   method: "get",
   path: "/client-error/{status}",
-  tags: ["Client Error"],
-  summary: "客户端错误",
+  tags: ["客户端错误"],
+  summary: "返回指定状态码的客户端错误",
   description: "返回指定状态码的客户端错误",
   request: {
     params: StatusParamsSchema,
@@ -78,8 +60,8 @@ export const clientErrorRoute = createRoute({
 export const serverErrorRoute = createRoute({
   method: "get",
   path: "/server-error/{status}",
-  tags: ["Server Error"],
-  summary: "服务器错误",
+  tags: ["服务器错误"],
+  summary: "返回指定状态码的服务器错误",
   request: {
     params: StatusParamsSchema,
   },
@@ -98,8 +80,8 @@ export const serverErrorRoute = createRoute({
 export const timeoutRoute = createRoute({
   method: "get",
   path: "/timeout",
-  tags: ["Timeout"],
-  summary: "延迟响应",
+  tags: ["延时响应"],
+  summary: "根据请求参数返回延时响应",
   request: {
     query: TimeoutQuerySchema,
   },

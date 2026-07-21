@@ -68,24 +68,3 @@ export const NO_RESPONSE_BODY_METHODS = ["head", "trace", "connect"] as const;
 export const NO_BODY_RESPONSE_STATUSES = [204, 205, 206] as const;
 
 export const DEFAULT_TIMEOUT_MS = 60_000;
-export const REDIRECT_TARGET = "/api/success/200";
-
-export const SERVER_PORTS = {
-  hono: 5021,
-} as const;
-
-export function getEndpointList(host: string) {
-  const h = host.replace(/^https?:\/\//, "");
-  return {
-    endpoints: [
-      `${h}/success/200`,
-      `${h}/redirect/300`,
-      `${h}/client-error/400`,
-      `${h}/server-error/500`,
-      `${h}/timeout?timeout=60000`,
-    ],
-    docs: [
-      { framework: "hono", url: `http://${host}:${SERVER_PORTS.hono}/docs` },
-    ],
-  };
-}

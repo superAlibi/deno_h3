@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm --filter @deno-h3/shared build",
+    "build": "pnpm --filter hono-app exec wrangler deploy --dry-run",
     "dev": " pnpm --filter hono-app dev",
-    "deploy": "pnpm build && pnpm --filter hono-app deploy",
+    "deploy": "pnpm --filter hono-app deploy",
     "cf-typegen": "pnpm --filter hono-app cf-typegen",
-    "check": "pnpm build && pnpm --filter hono-app exec tsc --noEmit"
+    "check": "pnpm --filter @deno-h3/shared check && pnpm --filter hono-app exec tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "7.0.1-rc",

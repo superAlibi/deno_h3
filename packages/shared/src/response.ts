@@ -3,7 +3,7 @@ import {
   NO_BODY_METHODS,
   NO_BODY_RESPONSE_STATUSES,
   NO_RESPONSE_BODY_METHODS,
-} from "./constants.js";
+} from "./constants.ts";
 
 export type QueryRecord = Record<string, string | string[]>;
 
@@ -34,7 +34,11 @@ export async function parseRequestBody(
   req: Request,
   method: string,
 ): Promise<unknown> {
-  if (NO_BODY_METHODS.includes(method.toLowerCase() as typeof NO_BODY_METHODS[number])) {
+  if (
+    NO_BODY_METHODS.includes(
+      method.toLowerCase() as typeof NO_BODY_METHODS[number],
+    )
+  ) {
     return null;
   }
 
@@ -45,7 +49,7 @@ export async function parseRequestBody(
     }
     if (contentType.includes("application/x-www-form-urlencoded")) {
       const formData = await req.formData();
-      const fields: Record<string, FormDataEntryValue> = {};
+      const fields: Record<string, string | File> = {};
       formData.forEach((value, key) => {
         fields[key] = value;
       });
@@ -103,7 +107,11 @@ export async function handleSuccessRequest(
     message = "this is text response";
   }
 
-  return buildResponse(req, { contentType, serach: query, body, message }, status);
+  return buildResponse(
+    req,
+    { contentType, serach: query, body, message },
+    status,
+  );
 }
 
 export async function handleErrorRequest(
@@ -114,7 +122,11 @@ export async function handleErrorRequest(
 ): Promise<Response> {
   const contentType = req.headers.get("Content-Type")?.toLowerCase() ?? null;
   const body = await parseRequestBody(req, req.method);
-  return buildResponse(req, { contentType, serach: query, body, message }, status);
+  return buildResponse(
+    req,
+    { contentType, serach: query, body, message },
+    status,
+  );
 }
 
 export function handleTimeoutRequest(

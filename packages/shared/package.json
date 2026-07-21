@@ -3,32 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./constants": {
-      "types": "./dist/constants.d.ts",
-      "import": "./dist/constants.js"
-    },
-    "./response": {
-      "types": "./dist/response.d.ts",
-      "import": "./dist/response.js"
-    },
-    "./schemas": {
-      "types": "./dist/schemas.d.ts",
-      "import": "./dist/schemas.js"
-    }
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc && node --watch-path=src --watch-preserve-output scripts/tsc-watch.mjs"
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "zod": "^4.4.3"
